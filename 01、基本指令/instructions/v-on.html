@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>v-on 事件</title>
+  <script src="../js/vue.js"></script>
+</head>
+<body>
+  <div id="container">
+    <input type="button" value="点我" v-on:click="clickme()"/>
+    <p>{{num}}</p>
+  </div>
+
+  <script>
+    var vm = new Vue({
+      el:"#container",
+      data:{
+        // 定义一个数据默认是1
+        num:1
+      },
+      methods:{
+        clickme:function(){
+          this.num++
+        }
+      }
+    })
+  </script>
+</body>
+</html>
