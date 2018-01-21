@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="../js/vue.js"></script>
+  <script src="../js/sweetalert2.min.js"></script>
+  <link rel="stylesheet" href="../css/sweetalert2.min.css">
+  <title>blog demo</title>
+</head>
+<body>
+
+  <div id="container">
+    <p>标题：<input type="text" v-model="title" placeholder="标题" ></p>
+    <p>内容：<textarea name="content" id="" cols="30" rows="10" v-model="content"></textarea></p>
+    <p><input type="submit" value="添加" v-on:click="add" ></p>
+
+    <hr>
+
+    <table border="1">
+      <tr>
+        <th>序号</th>
+        <th>标题</th>
+        <th>内容</th>
+        <th>操作</th>
+      </tr>
+      <tr v-for="(data,index) in datas">
+        <td>{{index+1}}</td>
+        <td>{{data.title}}</td>
+        <td>{{data.content}}</td>
+        <td>
+          <a href="#" v-on:click="deleteRow(index)">删除</a>
+          <a href="#" v-on:click="modifyData(index)">修改</a>
+        </td>
+      </tr>
+    </table>
+    <span v-show="datas.length!=0" ><a href="#" v-on:click="deleteAllData()">全部删除</a></span>
+    <span v-show="datas.length==0">没有数据</span>
+  </div>
+
+  <script>
+    var vm = new Vue({
+      el:'#container',
+      data:{
+        title:'',
+        content:'',
+        datas:[]
+      },
+      methods:{
+        // 添加数据
+        add(){
+          if(this.title =="" || this.content==""){
+            alert("标题或内容不能为空")
+            return
+          }
+          // 把标题和内容添加到数组中
+          this.datas.push({"title":this.title,"content":this.content})
+          // 添加完数据以后把标题和内容置空
+          this.title=""
+          this.content=""
+        },
+        // 删除数据
+        deleteRow(index){
+          //在一个方法中调用
+          let that = this // 由于是在方法的方法内部，this 就指的是当前方法了， 所以要使用 var that = this 来声明一下
+         //在一个方法中调用 另一个方法
+         this.$options.methods.deleteMethod(function callback(){
+             that.datas.splice(index,1)
+         })
+        },
+        //修改数据
+        modifyData(index){
+          // 取得原来的数据
+          let data = this.datas[index]
+
+          swal({
+            title: '修改',
+            // type: 'info',
+            html:
+              "<div><p>标题:<input id=\"title\" value="+data.title+" ></input></p>"+
+              " <p>内容:<input  id=\"content\" value="+data.content+"></input></p></div>" ,
+
+            showCancelButton: true,
+            focusConfirm: false,
+            confirmButtonText:'确定',
+            cancelButtonText:'取消'
+          }).then((result)=>{
+            if(result.value){
+              let title = document.getElementById('title').value
+              let content = document.getElementById('content').value
+              // 修改数据
+              this.datas.splice(index,1,{"title":title,"content":content})
+            }
+          })
+        },
+        //删除 全部数据
+        deleteAllData(){
+          //这里使用箭头函数就不用再使用 let that = this 来转化了,可以上面的比较一下，两种方式
+         this.$options.methods.deleteMethod(()=>{
+           this.datas = []
+         })
+        },
+        // 封装一个删除方法
+        deleteMethod(callback){
+          swal({
+            title: '确定删除吗?',
+            text: "全部删除了以后就不恢复不了哦！",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText:'取消',
+            confirmButtonText: '确定删除!'
+          }).then((result) => {
+            if (result.value) {
+               callback()
+            }
+          })
+        }
+      }
+    })
+  </script>
+</body>
+</html>
