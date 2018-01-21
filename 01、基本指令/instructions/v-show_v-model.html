@@ -5,8 +5,53 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>v-show 和 v-model 指令</title>
+  <script src="../js/vue.js"></script>
+
+  <style>
+    body{
+      background-color: green;
+    }
+    #showDiv{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: red;
+      height: 100px;
+      width: 100px;
+    }
+  </style>
 </head>
 <body>
 
+<div id="container">
+  <button @click="clickMe()">{{defaultButton}}</button>
+  <!-- 如果 v-show = true 的话就会显示 此 div  -->
+  <div v-show="flag" id="showDiv">
+    <span>我是 v-show</span>
+  </div>
+</div>
+
+<script>
+  var vm = new Vue({
+    el:'#container',
+    data:{
+      // 是否显示 div 的标志，默认是不显示
+      flag:false,
+      // 默认按钮显示字样
+      defaultButton:'显示'
+    },
+    methods:{
+      // 按钮点击的方法
+      clickMe(){
+        if(this.defaultButton == "显示"){
+          this.defaultButton ="隐藏"
+        }else{
+          this.defaultButton ="显示"
+        }
+        this.flag = !this.flag
+      }
+    }
+  })
+</script>
 </body>
 </html>
