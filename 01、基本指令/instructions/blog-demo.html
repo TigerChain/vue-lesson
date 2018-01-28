@@ -8,6 +8,11 @@
   <script src="../js/sweetalert2.min.js"></script>
   <link rel="stylesheet" href="../css/sweetalert2.min.css">
   <title>blog demo</title>
+  <style>
+  body {
+    background-color: red;
+  }
+  </style>
 </head>
 <body>
 
@@ -25,6 +30,7 @@
         <th>内容</th>
         <th>操作</th>
       </tr>
+      <!-- 遍历把内容显示出来 -->
       <tr v-for="(data,index) in datas">
         <td>{{index+1}}</td>
         <td>{{data.title}}</td>
@@ -36,6 +42,7 @@
       </tr>
     </table>
     <span v-show="datas.length!=0" ><a href="#" v-on:click="deleteAllData()">全部删除</a></span>
+    <!-- 没有数据的显示这个标签 -->
     <span v-show="datas.length==0">没有数据</span>
   </div>
 
@@ -43,8 +50,11 @@
     var vm = new Vue({
       el:'#container',
       data:{
+        // 标题
         title:'',
+        // 内容
         content:'',
+        // 所有的内容
         datas:[]
       },
       methods:{

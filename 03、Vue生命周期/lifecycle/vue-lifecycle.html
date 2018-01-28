@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>vue-lifecycle</title>
+  <script src="../js/vue.js"></script>
+</head>
+<body>
+
+  <h2>vue lifecycle--请打开 chrome 调试工具，查看 console</h2>
+  <hr>
+  <div id="container">
+      <button @click="changeMsg()">change</button>
+      <button @click="destroy()">destroy</button>
+      <h4>{{'outer html 中的 msg :'+msg}}</h4>
+  </div>
+
+  <script type="text/javascript">
+    var vm = new Vue({
+      // el:'#container',
+      data:{
+        msg:'TigerChain'
+      },
+      beforeCreate(){
+        console.group("%c%s","color:red",'beforeCreate--实例创建前状态')
+        console.log("%c%s","color:blue","el  :"+this.$el)
+        console.log("%c%s","color:blue","data  :"+this.$data)
+        console.log("%c%s","color:blue","msg  :"+this.msg)
+      },
+      created() {
+        console.group("%c%s","color:red",'created--实例创建完成状态')
+        console.log("%c%s","color:blue","el  :"+this.$el)
+        console.log("%c%s","color:blue","data  :"+this.$data)
+        console.log("%c%s","color:blue","msg  :"+this.msg)
+      },
+      beforeMount() {
+        console.group("%c%s","color:red",'beforeMount--挂载之前的状态')
+        console.log("%c%s","color:blue","el  :"+this.$el)
+        console.log(this.$el);
+        console.log("%c%s","color:blue","data  :"+this.$data)
+        console.log("%c%s","color:blue","msg  :"+this.msg)
+        console.log("%s%o","document.getElementById('container'): ",document.getElementById('container'))
+      },
+      mounted() {
+        console.group("%c%s","color:red",'mounted--已经挂载的状态')
+        console.log("%c%s","color:blue","el  :"+this.$el)
+        console.log(this.$el);
+        console.log("%c%s","color:blue","data  :"+this.$data)
+        console.log("%c%s","color:blue","msg  :"+this.msg)
+        console.log("%s%o","document.getElementById('container'): ",document.getElementById('container'))
+      },
+      beforeUpdate(){
+        console.group("%c%s","color:red",'beforeUpdate--数据更新前的状态')
+        if(this.$el.innerHTML){
+          console.log("%c%s","color:blue","el  :"+this.$el.innerHTML)
+        }
+        console.log(this.$el);
+        console.log("%c%s","color:blue","data  :"+this.$data)
+        console.log("%c%s","color:blue","msg  :"+this.msg)
+        if(document.getElementById('container')!=null){
+          console.log("%c%s","color:green","真实的 DOM 结构:"+document.getElementById('container').innerHTML)
+        }
+      },
+      updated() {
+        console.group("%c%s","color:red",'updated--数据更新完成时状态')
+        console.log("%c%s","color:blue","el  :"+this.$el.innerHTML)
+        console.log(this.$el);
+        console.log("%c%s","color:blue","data  :"+this.$data)
+        console.log("%c%s","color:blue","msg  :"+this.msg)
+        if(document.getElementById('container')!=null){
+          console.log("%c%s","color:green","真实的 DOM 结构:"+document.getElementById('container').innerHTML)
+        }
+      },
+      activated() {
+        console.group("%c%s","color:red",'activated-- keep-alive 组件激活时调用')
+        console.log("%c%s","color:blue","el  :"+this.$el)
+        console.log(this.$el);
+        console.log("%c%s","color:blue","data  :"+this.$data)
+        console.log("%c%s","color:blue","msg  :"+this.msg)
+      },
+      deactivated(){
+        console.group("%c%s","color:red",'deactivated-- keep-alive 停用时调用')
+        console.log("%c%s","color:blue","el  :"+this.$el)
+        console.log(this.$el);
+        console.log("%c%s","color:blue","data  :"+this.$data)
+        console.log("%c%s","color:blue","msg  :"+this.msg)
+      },
+      beforeDestroy() {
+        console.group("%c%s","color:red",'beforeDestroy-- vue实例销毁前的状态')
+        console.log("%c%s","color:blue","el  :"+this.$el)
+        console.log(this.$el);
+        console.log("%c%s","color:blue","data  :"+this.$data)
+        console.log("%c%s","color:blue","msg  :"+this.msg)
+      },
+      destroyed() {
+        console.group("%c%s","color:red",'destroyed-- vue实例销毁完成时调用')
+        console.log("%c%s","color:blue","el  :"+this.$el)
+        console.log(this.$el);
+        console.log("%c%s","color:blue","data  :"+this.$data)
+        console.log("%c%s","color:blue","msg  :"+this.msg)
+      },
+      methods: {
+        changeMsg() {
+          this.msg = 'TigerChain'+parseInt(10*Math.random());
+        },
+        destroy() {
+          this.$destroy()
+        }
+      },
+      // 添加一个模版
+      // template:"<h4>{{'template 中的 msg:'+this.msg}}</h4>",
+      // // 使用 render 方法来渲染模版
+      // render(h){
+      //   return h('h4', "这是render 方法渲染出来的")
+      // },
+    })
+    // 手动挂载 el 绑定到 container
+    vm.$mount('#container')
+  </script>
+</body>
+</html>
