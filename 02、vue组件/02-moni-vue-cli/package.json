@@ -4,6 +4,9 @@
   "main": "index.js",
   "author": "TigerChain",
   "license": "MIT",
+  "scripts":{
+    "start":"webpack-dev-server --port 8888 --open --hot"
+  },
   "dependencies": {
     "vue": "^2.5.13"
   },
