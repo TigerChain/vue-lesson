@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Vue 中的 方法</title>
+  <script src="js/vue.js"></script>
+  <style>
+    .bg {
+      background-color: red;
+      height: 35px;
+    }
+  </style>
+</head>
+<body>
+  <h3>Vue 中的方法</h3>
+  <div id="container">
+    <button v-bind:class="{bg:isShowbgStyle}" @click="testDataFun">在 data 调用 testDataFun 方法</button>
+    <button v-bind:class="{bg:isShowbgStyle}" @click="testDataFun()">在 data 调用 testDataFun() 方法</button>
+    <button v-bind:class="{bg:isShowbgStyle}" @click="testDataFun('msg',$event)">在 data 调用 testDataFun(参数，事件) 方法</button>
+    <button v-bind:class="{bg:isShowbgStyle}" @click="testInMethodsFun">在 methods 调用 testInMethodsFun 方法</button>
+    <button v-bind:class="{bg:isShowbgStyle}" @click="testInMethodsFun()">在 data 调用 testInMethodsFun() 方法</button>
+    <button v-bind:class="{bg:isShowbgStyle}" @click="testInMethodsFun('msg',$event)">在 data 调用 testInMethodsFun(参数，事件) 方法</button>
+  </div>
+
+  <script>
+    var vm = new Vue({
+      el:"#container",
+      data:{
+        isShowbgStyle:true,
+        testDataFun(){
+          console.log(this,arguments)
+        }
+      },
+      methods: {
+        testInMethodsFun() {
+          console.log(this,arguments)
+        }
+      }
+    })
+  </script>
+</body>
+</html>

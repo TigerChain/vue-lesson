@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>vue-component</title>
+  <script type="text/javascript" src="../js/vue.js">
+</script>
+</head>
+
+<body>
+  <h2>vue-component</h2>
+  <hr>
+  <div id="container">
+    <h3>爱吃什么水果？ app 实例</h3>
+      <ol>
+        <todolist
+        ></todolist>
+      </ol>
+  </div>
+
+  <div id="container2">
+    <h3>爱吃什么水果？ app2 实例</h3>
+      <ol>
+        <todolist
+        ></todolist>
+      </ol>
+  </div>
+
+  <div>
+    <h3>爱吃什么水果？</h3>
+    组件没有在任何实例中，所以不显示 <font color="red">「组件一定要挂载到某个 Vue 实例中，否则不会生效」</font>
+      <ol>
+        <todolist
+        ></todolist>
+      </ol>
+  </div>
+
+  <script type="text/javascript">
+    // 定义一个子组件
+    var child = Vue.extend({
+      template: '<div>嵌套在 todolist 组件中</div>',
+    })
+    // 定义一个组件构造器，不是实例
+    var todolist = Vue.extend({
+      template:'<div><li v-for="(item,index) in datas" @click="showName(index)">{{item.text}}</li> <br/><child></child></div>',
+      data() {
+        return {
+          datas:[
+           { id: 0, text: '苹果' },
+           { id: 1, text: '香蕉' },
+           { id: 2, text: '只要是水果我都爱吃' }
+         ]
+        }
+      },
+      methods:{
+        showName(index){
+          alert(this.datas[index].text)
+        }
+      },
+      components: {
+        'child': child
+      }
+    })
+
+    // 全局组件注册
+    // Vue.component('todolist',todolist)
+    // 定义一个 Vue 实例
+    var app = new Vue({
+      el:"#container",
+      data:{},
+      components: {
+        'todolist': todolist
+      }
+    })
+    // 定义另一个 Vue 实例
+    var app2 = new Vue({
+      el:'#container2'
+    })
+  </script>
+
+</body>
+</html>

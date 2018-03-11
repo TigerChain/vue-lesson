@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>hash 实现前端路由</title>
+  
+  <style>
+
+    #nav {
+      margin: 0;
+      border:0;
+      height: 40px;
+      border-top: #060 2px solid;
+      margin-top: 10px;
+      border-bottom: #060 2px solid;
+      background-color: red;
+    }
+    #nav ul {
+      margin: 0;
+      border: 0;
+      list-style: none;
+      line-height: 40px;
+    }
+    #nav li {
+      display: block;
+      float: left;
+    }
+
+    #nav a {
+      display: block;
+      color: #fff;
+      text-decoration: none;
+      padding: 0 20px;
+    }
+
+    #nav a:hover {
+      background-color: orange;
+    }
+
+  </style>
+</head>
+<body>
+
+  <h3>使用 hash 实现前端路由</h3>
+  <hr/>
+  <a href="#hash1">#hash1</a>
+  <a href="#hash2">#hash2</a>
+  <a href="#hash3">#hash3</a>
+  <a href="#hash4">#hash4</a>
+
+  <p/>
+  <div id = "show-hash-result" style="color:blue">
+   点击上面链接，并观察浏览器
+  </div>
+  <h4>定义一个简单的 tab 路由页面</h4>
+  <div id="nav">
+    <ul>
+      <li><a href="#/index.html">首页</a></li>
+      <li><a href="#/server">服务</a></li>
+      <li><a href="#/mine">我的</a></li>
+    </ul>
+  </div>
+  <div id="result"></div>
+
+  <script type="text/javascript">
+  window.addEventListener("hashchange", function(){
+    //变化后输出当前地址栏中的值
+    document.getElementById("show-hash-result").innerHTML = "当前的 hash 值是:  "+location.hash;
+    //打印出当前 hash 值
+    console.log("当前的 hash 值是:"+window.location.hash) ;
+    });
+  </script>
+
+<!-- 定义 router 的 js 代码块 -->
+  <script type="text/javascript">
+  //自定义一个路由规则
+  function CustomRouter(){
+   this.routes = {};
+   this.curUrl = '';
+
+   this.route = function(path, callback){
+       this.routes[path] = callback || function(){};
+   };
+
+   this.refresh = function(){
+         if(location.hash.length !=0){ // 如果 hash 存在
+           this.curUrl = location.hash.slice(1) || '/';
+           if(this.curUrl.indexOf('/')!=-1){ //这里粗略的把 hash 过滤掉
+               this.routes[this.curUrl]();
+           }
+         }
+   };
+
+   this.init = function(){
+       window.addEventListener('load', this.refresh.bind(this), false);
+       window.addEventListener('hashchange', this.refresh.bind(this), false);
+   }
+  }
+
+  //使用路由规则
+  var R = new CustomRouter();
+  R.init();
+  var res = document.getElementById('result');
+
+  R.route('/hash1',function () {
+   document.getElementById("show-hash-result").innerHTML = location.hash;
+  })
+
+  R.route('/index.html', function() {
+   res.style.height='150px';
+   res.style.width='300px';
+    res.style.background = 'green';
+    res.innerHTML = '<html>我是首页</html>';
+
+  });
+  R.route('/server', function() {
+   res.style.height='150px';
+   res.style.width='300px';
+    res.style.background = 'orange';
+    res.innerHTML = '我是服务页面';
+  });
+  R.route('/mine', function() {
+    res.style.background = 'red';
+    res.style.height='150px';
+    res.style.width='300px';
+    res.innerHTML = '我的界面';
+  });
+
+  </script>
+</body>
+</html>

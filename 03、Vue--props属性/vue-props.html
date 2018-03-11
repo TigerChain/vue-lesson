@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>vue-props</title>
+  <script src="./js/vue.js"></script>
+  <style>
+    .img {
+      height: 35px;
+      width: 35px;
+    }
+    .divStyle{
+      width:40px;
+      height: 40px;
+      background-color: red;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <p>绑定 class 样式  :class="{}"</p>
+    <!-- 绑定 css 意思就是 如果 isDivStyle 为 true 的话，那么 class=divStyle -->
+    <div v-bind:class="{divStyle:isDivStyle}">
+      哈哈
+    </div>
+    <hr>
+    <p>绑定图片地址 :src="图片地址"</p>
+    <!-- 第一种写法 -->
+    <img v-bind:src="imgSrc" v-bind:class="{'img':show}" >
+    <!-- 第二种写法 -->
+    <img v-bind:src="'./imgs/logo.png'" v-bind:style="imgStyle" >
+    <p>绑定行内样式 v-bind:style="{color:red}"</p>
+    <p v-bind:style="{color:'red'}">{{msg}}</p>
+    <input v-bind:type="'text'"  v-bind:placeholder="'输入内容'" v-model="clickBtnText"><!-- :value="''"  和 v-model 同时出现会报错-->
+    {{clickBtnText}} <br/>
+    <input type="button" value="测试" v-bind:style="{'margin-top':'10px'}">
+    
+
+  </div>
+  <hr>
+  <h4>以下是 props 例子</h4>
+    props 传递方法，回调的时候，把 message「你好」 传递回来「使用 props 中的 message 作为子组件的 data」
+    <hr>
+  <div id="app2">
+    <!-- 如果要使用 props 来传递对象，就要使用 v-bind  -->
+    <!-- 注意：在这里 age 在 props 中规定了要传入数字类型，这里传入 String 是为了演示效果，正式中使用要按照 age=100 来传入 -->
+    <mycomponent
+      message="你好"
+      :mydata="{username:'tigerchain',age:28}"
+      name-style="color:red"
+      age="100"
+      :clickme="show"
+      />
+  </div>
+  <script>
+    // 定义一个样式
+    var imgStyle = {
+      height: '40px',
+      width: '40px'
+    }
+
+    var vm = new Vue({
+      el: '#container',
+      data: {
+        msg:"123",
+        imgStyle:imgStyle,
+        imgSrc:'./imgs/logo.png',
+        show:true,
+        clickBtnText:'',
+        isDivStyle:true
+      }
+    })
+
+    // 定义一个组件
+    var myComponent = Vue.extend({
+      // 定义 props 就是一些默认值
+      props: {
+        message:"",
+        mydata:{},
+        //样式 ，如果这里使用驼峰标识 ，则在标签中使用就要使用 name-style 传递
+        nameStyle:{},
+        // 这里规定传递过来的数据必须是数字，否则后台会报警告
+        age: Number,
+        clickme:{
+          type:Function
+        }
+      },
+      data(){
+        return {
+          // 可以在数据里面将 props 值赋给 data 值，然后就可以修改这个值，但是原始的 props 中的值是修改不了的
+          msg:this.message
+        }
+      },
+      template: '<div>'+
+                  '{{ message }}--{{msg}}'+
+                  '<div>'+
+                     '<span v-bind:style="nameStyle" @click="clickme()">{{ mydata.username}} {{this.age}}</span>'+
+                     '<button @click="clickme(msg)">点击我</button>'+
+                  '</div>'+
+                ' </div>'
+    })
+
+    // 全局注册组件 组件的别名要是小写，否则会报错
+    Vue.component('mycomponent', myComponent)
+
+    var vm2 = new Vue({
+      el:'#app2',
+      methods: {
+        show(msg) {
+          // return () =>{
+            if(msg){
+              alert('带回调的参数是：'+msg)
+            }else {
+              alert('没有带参数回调')
+            }
+
+            // console.log(this,arguments)
+          // }
+        }
+      }
+    })
+  </script>
+</body>
+</html>

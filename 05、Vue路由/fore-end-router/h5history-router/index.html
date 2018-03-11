@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>H5 history 实现前端路由</title>
+</head>
+<body>
+<h4>使用 h5 实现前端路由</h4>
+  <ul>
+    <li> <a  onclick="home()">首页</a></li>
+    <li> <a  onclick="message()">消息</a></li>
+    <li> <a  onclick="mine()">我的</a></li>
+  </ul>
+  <div id="showContent" style="height:240px;width:200px;background-color:red">
+    home
+  </div>
+
+  <script type="text/javascript">
+
+    function home() {
+      // 添加到历史记录栈中
+      history.pushState({name:'home',id:1},null,"?page=home#index")
+      showCard('home')
+    };
+
+    function message() {
+      history.pushState({name:'message',id:2},null,"?page=message#haha")
+      showCard('message')
+    }
+
+    function mine(){
+      history.pushState({
+        id:3,
+        name:'mine'
+      },null,"?name=tigerchain&&sex=man")
+      showCard('mine')
+    }
+
+    // 监听浏览器回退 并且刷新到指定内容
+    window.addEventListener('popstate',function (event) {
+      var content = "";
+       if(event.state) {
+         content = event.state.name;
+       }
+       console.log(event.state)
+       console.log("history 中的历史栈中的 name ："+content)
+       showCard(content)
+    })
+    // 此方法和上面的方法是一毛一样的，只是两种不同的写法而已
+    // window.onpopstate = function (event) {
+    //   var content = "";
+    //   if(event.state) {
+    //     content = event.state.name;
+    //   }
+    //   showCard(content);
+    // }
+
+    function showCard(name) {
+     console.log("当前的 hash 值是："+location.hash)
+     document.getElementById("showContent").innerHTML = name;
+    }
+
+  </script>
+
+</body>
+</html>
