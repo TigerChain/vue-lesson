@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="../css/normalize.css">
+  <link rel="stylesheet" href="../css/usesass.css">
+  <title>使用 sass </title>
+</head>
+<body>
+
+  <div class="box">
+    <div class="item"><span>1</span></div>
+  </div>
+
+<script>
+window.onresize = function(){
+  // 取得屏幕宽度
+  var devicewidth = document.documentElement.clientWidth || document.body.clientWidth
+  //动态设置 html font-size 值
+  document.getElementsByTagName('html')[0].style.fontSize = devicewidth / 10 + 'px';
+}
+
+</script>
+</body>
+</html>

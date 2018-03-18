@@ -1,0 +1,14 @@
+.box {
+  background-color: red;
+  width: 2.4154589372rem;
+  height: 2.4154589372rem;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+.item {
+  background-color: yellow;
+  width: 1.2077294686rem;
+  height: 1.2077294686rem; }
+
+/*# sourceMappingURL=usesass.css.map */

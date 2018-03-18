@@ -1,0 +1,19 @@
+@function px2rem($px){
+  // rem基准值
+    $rem : 41.4px;
+    @return ($px/$rem) + rem;
+}
+
+.box{
+  background-color: red;
+  width: px2rem(100px);
+  height: px2rem(100px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.item {
+  background-color: yellow;
+  width:px2rem(50px);
+  height:px2rem(50px);
+}
