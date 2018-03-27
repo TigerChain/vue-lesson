@@ -8,4 +8,5 @@
 
 [05、移动webapp适配--rem](https://githubchen001.github.io/vue-lesson/05、移动webapp适配--rem/index.html)
 
+[06、Vue路由](https://githubchen001.github.io/vue-lesson/06、Vue路由/index.html)
 
