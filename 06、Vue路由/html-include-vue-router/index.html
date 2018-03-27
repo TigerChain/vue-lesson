@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>vue-router 使用</title>
+
+</head>
+<body>
+  <h3> vue-router 的使用</h3>
+  <div id="container">
+
+    <router-link to="/main">主页</router-link>
+    <router-link to="/message">消息</router-link>
+    <router-link to="/mine/2">我的</router-link>
+    <!-- 路由对应的 View 在这里显示 -->
+    <router-view style="margin-top: 10px">
+
+    </router-view>
+  </div>
+
+  <script src="./js/vue.js"></script>
+  <script src="./js/vue-router.js"></script>
+
+<script>
+
+  // const Main = {template:'<div>主页</div>'}
+  // const Message = {template:'<div>消息</div>'}
+
+  // 定义一个 Main 组件
+  var Main = Vue.extend({
+    data(){
+      return {
+        title:'主页'
+      }
+    },
+    template:'<div style="height:100px;width:100px;background:green">'+
+                '<span>{{title}}</span>'+
+             '</div>'
+  })
+
+  // 定义一个　Message 组件
+  var Message = Vue.extend({
+    data(){
+      return {
+        title:'消息'
+      }
+    },
+    template:'<div style="height:100px;width:100px;background:red">'+
+                '<span>{{title}}</span>'+
+             '</div>'
+  })
+
+  // 定义一个 Mine 组件
+
+  var Mine = Vue.extend({
+    data() {
+      return {
+        title:'我的界面',
+      }
+    },
+    template:'<div style="height:100px;width:100px;background:orange">'+
+                '<span>{{title}}--取得路由参数：{{$route.params.id}}</span>'+
+             '</div>'
+  })
+
+  // 声明路由规则
+  const routes = [
+    //给一个默认的路由，默认显示 Main 组件
+    {
+      path:'/',component:Main
+    },
+    {
+      path:'/main',component:Main
+    },
+    {
+      path:'/message',component:Message
+    },
+    {
+      path:'/mine/:id',component:Mine
+    }
+  ]
+
+  // 全局注册组件 组件的别名要是小写，否则会报错
+  // Vue.component('home', Main)
+  // Vue.component('message', Message)
+  // Vue.component('mine', Mine)
+
+  // 创建 router 实例
+  const router = new VueRouter({
+    routes // 就相当于是 routes:routes
+  })
+
+  // 创建 Vue 并挂载，并且注册路由，这样 container 下都有路由功能
+  var vm = new Vue({
+    el:'#container',
+    router
+  })
+
+</script>
+
+</body>
+</html>
