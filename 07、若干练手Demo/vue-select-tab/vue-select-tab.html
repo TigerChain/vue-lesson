@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../js/vue.js" charset="utf-8"></script>
+  <title>vue-select-tab</title>
+
+  <style>
+
+    .rootDiv {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .flagdiv.active {
+      background-color: red;
+    }
+    .flagdiv {
+      margin: 5px;
+      padding-left: 5px;
+      padding-right: 5px;
+      border-radius: 3px;
+      /* 默认颜色 */
+      background-color: #ffeecc;
+    }
+  </style>
+
+
+</head>
+<body>
+
+  <div id="container">
+    <div class="rootDiv">
+      <div class="flagdiv" v-for="(item,index) in dataList" :class={active:item.isActive} @click="select(item)"><span>{{item.text}}</span></div>
+    </div>
+  </div>
+  <script>
+    var vm = new Vue({
+      el: '#container' ,
+      data: {
+        dataList: [
+          {text:'标签1',isActive:true},
+          {text:'标签2',isActive:false},
+          {text:'标签3',isActive:false},
+          {text:'标签4',isActive:false}
+        ]
+      },
+      methods: {
+        select(data){
+          // 默认都为 false 不显示样式
+          this.dataList.forEach(function(item){
+              item.isActive = false;
+          });
+          // 选中那个让那个显示样式
+          data.isActive = !data.isActive;
+        }
+      }
+    })
+  </script>
+</body>
+</html>

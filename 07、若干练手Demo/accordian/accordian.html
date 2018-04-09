@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>vue 的折叠效果</title>
+  <script src="../js/vue.js"></script>
+
+  <style>
+    html body{
+      margin: 0;
+      padding: 0;
+    }
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+    .titleclass{
+      display: flex;
+      background-color: #ffeecc;
+      align-items: center;
+      justify-content: space-between;
+      padding: 7px;
+      border-bottom: 1px solid red;
+      border-top:1px solid red;
+      margin-top: 5px;
+      margin-bottom: 7px;
+    }
+
+    .jtupcss{
+      background:url("./imgs/jtup.png") no-repeat;
+      width: 30px;
+      height: 30px;
+    }
+    .jtdowncss{
+      background:url("./imgs/jtdown.png") no-repeat;
+      width: 30px;
+      height: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <div>
+      <ul>
+
+           <div v-for="(item,index) in mydatas">
+             <!-- 标题 -->
+             <div class="titleclass" @click="clickitem(index)" :id="'item_'+index">
+                  {{item.title}}
+                  <div v-if="index===0"> <div class="jtupcss" :id="'item_jt'+index"></div></div>
+                  <div v-else> <div class="jtdowncss" :id="'item_jt'+index"></div></div>
+
+             </div>
+              <!-- 第一项默认展开 -->
+             <div v-if="index==0">
+               <ul :style="{'display':'block'}" :id="'item_s'+index">
+                  <li v-for="(data,index1) in item.content" >
+                    {{data.name}}
+                  </li>
+               </ul>
+             </div>
+             <!-- 其它项默认不展开 -->
+             <div v-else>
+               <ul :style="{'display':'none'}" :id="'item_s'+index">
+                  <li v-for="(data,index1) in item.content" >
+                    {{data.name}}
+                  </li>
+               </ul>
+             </div>
+          </div>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    var vm = new Vue({
+      el:"#container",
+      data:{
+        mydatas:[
+          {
+
+            title:'标题1',
+            content:[
+              {name:'TigerChain',address:'中国'},
+              {name:'TigerChain1',address:'中国'},
+              {name:'TigerChain2',address:'中国'},
+              {name:'TigerChain3',address:'中国'},
+              {name:'TigerChain4',address:'中国'},
+              {name:'TigerChain5',address:'中国'},
+              {name:'TigerChain6',address:'中国'},
+              {name:'TigerChain7',address:'中国'},
+              {name:'TigerChain8',address:'中国'}
+            ]
+          },
+          {
+
+            title:'标题2',
+            content:[
+              {name:'马超',address:'中国'},
+              {name:'TigerChain1',address:'中国'},
+              {name:'TigerChain2',address:'中国'},
+              {name:'TigerChain3',address:'中国'},
+              {name:'TigerChain4',address:'中国'},
+              {name:'TigerChain5',address:'中国'},
+              {name:'TigerChain6',address:'中国'},
+              {name:'TigerChain7',address:'中国'},
+              {name:'TigerChain8',address:'中国'}
+            ]
+          },
+          {
+
+            title:'标题3',
+            content:[
+              {name:'刘斌',address:'中国'},
+              {name:'TigerChain1',address:'中国'},
+              {name:'TigerChain2',address:'中国'},
+              {name:'TigerChain3',address:'中国'},
+              {name:'TigerChain4',address:'中国'},
+              {name:'TigerChain5',address:'中国'},
+              {name:'TigerChain6',address:'中国'},
+              {name:'TigerChain7',address:'中国'},
+              {name:'TigerChain8',address:'中国'}
+            ]
+          }
+
+        ],
+      },
+      methods:{
+        clickitem(index) {
+          var el = this.$el.querySelector('#item_s'+index).style ;
+          var img = this.$el.querySelector('#item_jt'+index) ;
+          console.log(img.className)
+          if(el.display=='none'){
+            // 使用两种方式 ，修改 style 和 动态设置 css 完成「两种方式都可以，使用 动态修改 className 灵活一些」
+             el.display = "block"
+             img.className = "jtupcss"
+          } else if (el.display=='block'){
+            el.display = "none"
+            img.className = "jtdowncss"
+          }
+        }
+      }
+    })
+  </script>
+</body>
+</html>

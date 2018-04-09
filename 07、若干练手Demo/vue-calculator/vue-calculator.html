@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Vue 实现计算器</title>
+  <script src="../js/vue.js"></script>
+  <style>
+  html body {
+    margin: 0;
+    padding: 0;
+  }
+  #container {
+    display: flex;
+    flex-direction: column;
+  }
+  .inputstyle{
+    height: 50px;
+    margin: 4px;
+    flex: 1;
+  }
+  .firstdiv{
+    display: flex;
+  }
+  .firstdiv button {
+    flex:1;
+    margin: 4px;
+    border:1px solid #e5e5e5;
+    background:#e6e4e2;
+    padding: 5px;
+  }
+  </style>
+</head>
+<body>
+  <div id="container">
+   <input type="text" placeholder="请输入数字" class="inputstyle" v-model="content">
+
+   <div class="firstdiv">
+      <button @click="operator('clear')">归零</button>
+      <button @click="operator('delete')">删除</button>
+   </div>
+   <div class="firstdiv">
+      <button @click="operator('7')">7</button>
+      <button @click="operator('8')">8</button>
+      <button @click="operator('9')">9</button>
+      <button @click="operator('*')">*</button>
+   </div>
+   <div class="firstdiv">
+      <button  @click="operator('4')">4</button>
+      <button  @click="operator('5')">5</button>
+      <button  @click="operator('6')">6</button>
+      <button  @click="operator('/')">/</button>
+   </div>
+   <div class="firstdiv">
+      <button  @click="operator('1')">1</button>
+      <button  @click="operator('2')">2</button>
+      <button  @click="operator('3')">3</button>
+      <button  @click="operator('-')">-</button>
+   </div>
+   <div class="firstdiv">
+      <button  @click="operator('0')">0</button>
+      <button  @click="operator('.')">.</button>
+      <button  @click="operator('+')">+</button>
+      <button  @click="operator('=')">=</button>
+   </div>
+  </div>
+
+  <script>
+    var vm = new Vue({
+      el:"#container",
+      data:{
+        content:""
+      },
+      methods:{
+        operator(flag){
+          
+          switch(flag){
+            case 'clear':
+              this.content = 0
+            break ;
+            case 'delete':
+              // 逐个删除 
+              this.content = this.content.slice(0, -1);
+
+            break ;
+            case '7':
+            case '8':
+            case '9':
+            case '*':
+            case '4':
+            case '5':
+            case '6':
+            case '/':
+            case '1':
+            case '2':
+            case '3':
+            case '-':
+            case '0':
+            case '.':
+            case '+':
+              this.content+=flag
+            break ;
+            case '=':
+            // 这里只是做个简单判断，有问题，不严格
+            if(!isNaN(this.content) || isContains(this.content,'+') || isContains(this.content,'-') || isContains(this.content,"*") || isContains(this.content,"/")){
+                this.content = eval(this.content)
+            }else{
+              alert('非法输入')
+            }
+            
+            break ;
+          }
+        }
+      }
+    })
+
+    function isContains(str, substr) {
+      return str.indexOf(substr) >= 0;
+    }
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>vue 实现商品列表选中效果</title>
+  <script src="../js/vue.js"></script>
+
+  <style>
+
+  .headul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .contentul{
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex-wrap: wrap;
+  }
+
+  .contentitem {
+    border:1px solid gray;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 5px;
+
+  }
+
+  .contentitemSelect {
+    border:1px solid orange;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 5px;
+
+  }
+
+  </style>
+</head>
+<body>
+<div id="container">
+  <div>
+    <ul class="headul">
+      <li v-for="(data,index) in datas">
+        <div class="header">{{data.title}}</div>
+        <div class="content">
+
+          <ul class="contentul">
+            <li class="contentitem" v-for="(content,index) in data.content" @click="change(index,$event)">
+              {{content.name}}
+            </li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+    <div @click="clear" v-show="selectDatas.length>0">一键清空</div>
+    <span v-show="selectDatas.length>0">当前选择的是：</span>
+    <span v-for="(item,index) in selectDatas">
+      {{item}}
+    </span>
+
+  </div>
+</div>
+
+<script>
+  var vm = new Vue({
+    el:"#container",
+    data:{
+      selectDatas:[],
+      cssStyles:[],
+      datas:[
+        {
+          title:'标题1',
+          content:[
+            {name:'内容1'},
+            {name:'内容2'},
+            {name:'内容3'},
+            {name:'内容4'},
+            {name:'内容5'},
+            {name:'内容6'},
+            {name:'内容7'},
+            {name:'内容8'},
+            {name:'内容9'},
+          ]
+        },
+        {
+          title:'标题2',
+          content:[
+            {name:'选择1'},
+            {name:'选择2'},
+            {name:'选择3'},
+            {name:'选择4'},
+            {name:'选择5'},
+            {name:'选择6'}
+          ]
+        },
+        {
+          title:'标题3',
+          content:[
+            {name:'内容1'},
+            {name:'内容2'},
+            {name:'内容3'},
+            {name:'内容4'},
+            {name:'内容5'},
+            {name:'内容6'}
+          ]
+        },
+
+      ]
+    },
+    methods:{
+        change(index,event) {
+          var e = event.target
+
+          // console.log(e.name)
+          if(e.className == 'contentitem'){
+            e.className = 'contentitemSelect'
+            this.selectDatas.push(e.innerText)
+            this.cssStyles.push(e)
+          }else if(e.className=='contentitemSelect'){
+            e.className = 'contentitem'
+            this.selectDatas.remove(e.innerText)
+            this.cssStyles.remove(e)
+          }
+        },
+        clear() {
+          // console.log(this.$el.querySelectorAll('.contentitem'))
+        for(i=0;i<this.cssStyles.length;i++){
+          this.cssStyles[i].className = 'contentitem'
+        }
+          this.selectDatas = []
+        }
+
+
+    }
+  })
+
+  Array.prototype.indexOf = function(val) {
+    for (var i = 0; i < this.length; i++) {
+    if (this[i] == val) return i;
+  }
+    return -1;
+  },
+  Array.prototype.remove = function(val) {
+    var index = this.indexOf(val);
+    if (index > -1) {
+    this.splice(index, 1);
+    }
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+    <style>
+        html body {
+            padding:0;
+            margin: 0;
+        }
+        .selectstyle {
+            display:flex ;
+            margin: 0 auto;
+            width:200px;
+            padding: 9px;
+            background: #e3e3e3;
+            justify-content: center ;
+        }
+        .listRoot {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .liststyle {
+            list-style-type:none;
+            padding: 10px;
+            width:200px;
+            text-align: center;
+            background: #ffeecc;
+        }
+        
+        .active {
+            background: red;
+        }
+        .list-enter-active, .list-leave-active {
+            transition: opacity 1s ease;
+        }
+        .list-enter, .list-leave-to {
+            opacity: 0;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div>
+            <my-head></my-head>
+        </div>
+    </div>
+    <script>
+        var myHead = Vue.extend({
+            template:`
+                <div >
+                    <div class="selectstyle" @click="showList">{{title}}</div>
+                    <div :class="'listRoot'">
+                    <!-- 列表添加上过渡效果-->
+                    <transition-group name="list" >
+                        <li v-show="isShorOrHideList"  @click="select(index)" :class="['liststyle',currentindex==index?'active':'liststyle']" v-for="(item,index) in datas" 
+                        @mouseenter ="showCurrentBg(index)" @mouseleave="showCurrentBg(-1)" :key="index">
+                            {{item.name}}
+                        </li>
+                    </transition-group/>
+                    </div>
+                </div>
+            `,
+            data() {
+                return {
+                    title:'选择',
+                    currentindex:-1,
+                    isShorOrHideList:false,
+                    datas:[
+                        {name:'选择1'},
+                        {name:'选择2'},
+                        {name:'选择3'},
+                        {name:'选择4'},
+                        {name:'选择5'},
+                        {name:'选择6'}
+                    ],
+                }
+            },
+            methods: {
+                // 显示列表 
+                showList() {
+                    this.isShorOrHideList = ! this.isShorOrHideList
+                },
+                //鼠标停留在当前的列表选项上
+                showCurrentBg(index){
+                    this.currentindex = index
+                    // console.log(index)
+                },
+                //点击列表 
+                select(index){
+                    this.isShorOrHideList = false;
+                    this.title = this.datas[index].name
+                }
+            }
+        })
+        // Vue.component('myhead',myHead)
+        var vm = new Vue({
+            el:"#container",
+            components:{
+                myHead
+            }
+        })
+    </script>
+</body>
+</html>
