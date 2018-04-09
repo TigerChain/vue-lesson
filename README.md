@@ -10,4 +10,4 @@
 
 [06、Vue路由](https://githubchen001.github.io/vue-lesson/06、Vue路由/index.html)
 
-[07、几个 vue 小 demo](https://githubchen001.github.io/vue-lesson/07、若干练手Demo/index.html)
+[07、几个vue小demo](https://githubchen001.github.io/vue-lesson/07、若干练手Demo/index.html)
