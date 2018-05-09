@@ -11,3 +11,5 @@
 [06、Vue路由](https://githubchen001.github.io/vue-lesson/06、Vue路由/index.html)
 
 [07、几个vue小demo](https://githubchen001.github.io/vue-lesson/07、若干练手Demo/index.html)
+
+[08、vue中使用mint-ui](https://githubchen001.github.io/vue-lesson/08、Mint-UI的使用/index.html)
