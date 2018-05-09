@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta charset="UTF-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<!-- 引入样式 -->
+	<link rel="stylesheet" href="https://unpkg.com/mint-ui/lib/style.css">
+
+	<style>
+		.mydiv {
+			margin-top: 10px;
+		}
+		.mint-button::after {
+			background-color: red;
+		}
+	</style>
+</head>
+<body>
+	<!-- 先引入 Vue -->
+  <script src="../js/vue.js"></script>
+  <!-- 引入组件库 -->
+  <script src="https://unpkg.com/mint-ui/lib/index.js"></script>
+	<div id="container">
+
+
+		<mt-button type="default">default</mt-button>
+		<mt-button type="primary">primary</mt-button>
+		<mt-button type="danger" >danger</mt-button>
+
+
+	<div class="mydiv">
+		<mt-button @click.native="sheetVisible=true" style="width:100%"> 打开弹窗</mt-button>
+	</div>
+
+
+<mt-actionsheet
+  :actions="actions"
+  v-model="sheetVisible">
+</mt-actionsheet>
+
+	</div>
+
+
+	<script src="./js/index.js"></script>
+</body>
+</html>
