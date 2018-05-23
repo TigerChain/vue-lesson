@@ -13,3 +13,5 @@
 [07、几个vue小demo](https://githubchen001.github.io/vue-lesson/07、若干练手Demo/index.html)
 
 [08、vue中使用mint-ui](https://githubchen001.github.io/vue-lesson/08、Mint-UI的使用/index.html)
+
+[09、vue网络请求](https://githubchen001.github.io/vue-lesson/09、vue网络请求/index.html)
