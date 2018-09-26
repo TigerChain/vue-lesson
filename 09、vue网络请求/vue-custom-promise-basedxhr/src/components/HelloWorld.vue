@@ -41,7 +41,7 @@ export default {
     // 请求本地数据
     getData() {
       var that = this
-      this.fetchServer('../static/mydata.json',{methods:'GET'})
+      this.fetchServer('../../static/mydata.json',{methods:'GET'})
       .then(function(res){
         console.log(res)
         if(res.status=='0001'){

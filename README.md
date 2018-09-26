@@ -15,3 +15,8 @@
 [08、vue中使用mint-ui](https://githubchen001.github.io/vue-lesson/08、Mint-UI的使用/index.html)
 
 [09、vue网络请求](https://githubchen001.github.io/vue-lesson/09、vue网络请求/index.html)
+
+### 更多精彩文章等着你来
+<div style="border:1px solid orange">
+	<img src="./imgs/myscancode.jpg"></img>
+</div>
