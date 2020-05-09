@@ -16,7 +16,7 @@
 
 [09、vue网络请求](https://tigerchain.github.io/vue-lesson/09、vue网络请求/index.html)
 
-### 更多精彩文章等着你来
-<div style="border:1px solid orange">
-	<img src="./imgs/myscancode.jpg"></img>
+### 关注一下，更多精彩文章等着你来
+<div style="width:450px">
+	<img src="https://tigerchain.gitee.io/medias/we-search.png"></img>
 </div>
