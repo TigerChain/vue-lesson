@@ -17,6 +17,6 @@
 [09、vue网络请求](https://tigerchain.github.io/vue-lesson/09、vue网络请求/index.html)
 
 ### 关注一下，更多精彩文章等着你来
-<div style="width:450px">
+<div style="width:400px">
 	<img src="https://tigerchain.gitee.io/medias/we-search.png"></img>
 </div>
